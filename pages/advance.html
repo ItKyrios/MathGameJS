@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, minimal-ui">
+<title>MathGame - Advance Level</title>
+<link rel="stylesheet" href="../css/swiper.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"> 
+</head>
+<body>
+<!-- Overlay panel -->
+<div class="body-overlay"></div>
+<!-- Left panel -->
+<div id="panel-left"></div>
+<!-- Right panel -->
+<div id="panel-right"></div>
+
+<div class="panel-close panel-close--left"><img src="../icons/close.svg" alt="" title=""/></div>
+<div class="panel-close panel-close--right"><img src="../icons/close.svg" alt="" title=""/></div>
+
+<div class="page page--intro" data-page="intro">
+	
+	<!-- HEADER -->
+	<header class="header header--fixed">	
+		<div class="header__inner">	
+			<div class="header__icon header__icon--menu open-panel" data-panel="left" data-arrow="right"><span></span><span></span><span></span><span></span><span></span><span></span></a></div>
+			<div class="header__logo header__logo--text"><a href="../index.html"><strong>Advance</strong>Level</a></div>	
+			<div class="header__icon open-panel" data-panel="right" data-arrow="left"><p style="color:white; font-weight: bolder;" id="timer">00m.00s</p></div>
+                </div>
+	</header>
+	
+	
+	<!-- INTRO SLIDER -->
+	<div class="swiper-container slider-intro slider-intro--bottom-nav">
+		<div class="swiper-wrapper">
+
+			<div class="swiper-slide slider-intro__slide" style="background-image:url(../assets/images/slider/bg.jpg);">
+				<div class="slider-intro__caption caption">
+				<div class="caption__content">
+					<h2 class="caption__title" data-swiper-parallax="-300%" data-swiper-parallax-duration="500" id="question">What is?</h2>
+                    <input type="hidden" pattern="\d*" id="userResponse" placeholder="Type your answer here" onclick="this.value=''" onkeypress="enterKeyPressed(event);"><br><br><br>
+					<p class="caption__text" data-swiper-parallax="-100%" data-swiper-parallax-duration="200" id="userScore">
+                         Your Score:  
+                    </p>
+					<button class="caption__more button button--small button--blue" data-swiper-parallax="-60%" data-swiper-parallax-duration="200" onclick="checkUserResponse();" id="startButton">START GAME</button>
+                    <input type="hidden" id="gameLevel" value="advance">
+				</div>
+				</div>
+			</div> 
+			
+		</div>
+	</div>
+			  
+
+
+
+</div>
+<!-- PAGE END -->
+
+<!-- Bottom navigation -->
+<div id="bottom-toolbar" class="bottom-toolbar"></div>
+
+<!-- Social Icons Popup -->
+<div id="popup-social"></div>
+ 
+<!-- Alert --> 
+<div id="popup-alert"></div>  
+
+    
+<script src="../js/jquery-3.5.1.min.js"></script>
+<script src="../js/jquery.validate.min.js" ></script>
+<script src="../js/swiper.min.js"></script>
+<script src="../js/jquery.custom.js"></script>
+<script src="../js/script.js"></script>
+</body>
+</html>
