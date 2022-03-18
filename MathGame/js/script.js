@@ -166,3 +166,19 @@ function enterKeyPressed(event) {
        return true;
     }
  }
+
+ //For mini user set timer in the bottom navigation
+function userInputTime(){
+    var userInputTime = document.querySelector('#userInputTime');
+    userInputTime.innerHTML = "Timer<br><br><input type='number' id='updateUserInputTime' placeholder='in seconds' style='width:50px; border-radius:5px;'> <br><br> <button class='button button--green' style='width:100px; height:25px; font-size:12px; padding:0px; margin:0px; box-shadow: 0 14px 18px 0 #333333, 0 17px 50px 0 #333333;' onclick='updateUserInputTime();'>SET & GO</button>";
+    userInputTime.style = "color: white; font-size: 12px; text-align: center;"
+}
+
+function updateUserInputTime(){
+    var updateUserInputTime = document.querySelector('#updateUserInputTime');
+    var customGameTime = updateUserInputTime.value;
+
+    askQuestion();
+
+    console.log(customGameTime);
+}

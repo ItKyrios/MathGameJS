@@ -9,10 +9,10 @@ $(document).ready(function () {
 	let showURL = () => {
     	let url = window.location.href;
     	let filename = url.split('/').pop();
-    	return true;
+    	return filename;
     }
 
-	if (showURL()) {
+	if (showURL() == 'index.html') {
 		// LOAD PANEL LEFT
 		$( "#panel-left" ).load( "pages/panel-left.html", function() {
 			var swipersubnav = new Swiper ('.panel__navigation', {
