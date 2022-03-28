@@ -1,7 +1,38 @@
 var correctAnswer = 0;
 var count = -1;
 var gameLevel = "";
+var gamePoints;
 var timerIsActive = true;
+
+document.body.onload = init();
+
+function init(){
+    gameLevel = document.querySelector("#gameLevel").value;
+ 
+    if(document.cookie == ''){
+        gamePoints = 0;
+    } else{
+        gamePoints = readCookie('gamePoints');
+    }
+
+    if (gameLevel == "intermediate" && gamePoints < 100) {
+        startButton.disabled = true;
+        startButton.style = "background-color:grey; color:black;";
+        startButton.innerHTML = "LEVEL LOCKED<br>"+(100 - gamePoints)+" pts to go";
+
+    } else if(gameLevel == "advance" && gamePoints < 500) {
+        startButton.disabled = true;
+        startButton.style = "background-color:grey; color:black;";
+        startButton.innerHTML = "LEVEL LOCKED<br>"+(500 - gamePoints)+" pts to go";
+        
+    } else{
+        startButton.disabled = false;
+        startButton.style = "background-color:blue; color:white;";
+        startButton.innerHTML = "START LEVEL"
+    }
+
+    console.log("DOM is ready."+gamePoints);
+}
 
 function askQuestion(){
     gameLevel = document.querySelector("#gameLevel").value;
@@ -80,10 +111,13 @@ function checkUserResponse(){
 
     if (userResponse == correctAnswer) {
         count++;
+        gamePoints++;
         userScore.style = "background-color: green; border-radius:5px; padding-top:5px;";
         userScore.innerHTML = "Current Score: " + count;
         console.log("User is correct");
     } else {
+        count--;
+        gamePoints--;
         userScore.style = "background-color: red; border-radius:5px; padding-top:5px;";
         userScore.innerHTML = "Current Score: " + count;
         console.log("User is incorrect");
@@ -151,6 +185,7 @@ function countdownTimer(){
         startButton.disabled = userResponse.disabled = "true";
         startButton.style = userResponse.style = "background-color:grey; color:black;";
         userScore.innerHTML = "Final Score: " + count;
+        document.cookie = "gamePoints="+gamePoints;
     }
     }, 1000);
 
@@ -160,7 +195,6 @@ function countdownTimer(){
 //When user press Enter Key to submit the answer
 function enterKeyPressed(event) {
     if (event.keyCode == 13) {
-       console.log("Enter key is pressed");
        checkUserResponse();
        userResponse.value = '';
        return true;
@@ -181,4 +215,16 @@ function updateUserInputTime(){
     askQuestion();
 
     console.log(customGameTime);
+}
+
+//Reading cookie
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
 }
