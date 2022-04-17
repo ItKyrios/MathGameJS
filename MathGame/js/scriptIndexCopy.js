@@ -1,41 +1,24 @@
 var correctAnswer = 0;
-var totalCorrectAnswer;
 var count = -1;
 var gameLevel = "";
 var gamePoints;
 var timerIsActive = true;
 
+//Number format ranges in an array of objects 
+var ranges = [
+    { divider: 1e18 , suffix: 'E' },
+    { divider: 1e15 , suffix: 'P' },
+    { divider: 1e12 , suffix: 'T' },
+    { divider: 1e9 , suffix: 'G' },
+    { divider: 1e6 , suffix: 'M' },
+    { divider: 1e3 , suffix: 'K' }
+];
+
 document.body.onload = init();
 
 function init(){
-    // showGameStats();
+    showGameStats();
     
-    gameLevel = document.querySelector("#gameLevel").value;
- 
-    if(document.cookie == ''){
-        gamePoints = 0;
-        totalCorrectAnswer = 0;
-    } else{
-        gamePoints = readCookie("gamePoints");
-        totalCorrectAnswer = readCookie("totalCorrectAnswer");
-    }
-
-    if (gameLevel == "intermediate" && gamePoints < 100) {
-        startButton.disabled = true;
-        startButton.style = "background-color:grey; color:black;";
-        startButton.innerHTML = "<i class='fa fa-lock'></i> "+(100 - gamePoints)+" pts to unlock";
-
-    } else if(gameLevel == "advance" && gamePoints < 500) {
-        startButton.disabled = true;
-        startButton.style = "background-color:grey; color:black;";
-        startButton.innerHTML = "<i class='fa fa-lock'></i> "+(500 - gamePoints)+" pts to unlock";
-        
-    } else{
-        startButton.disabled = false;
-        startButton.style = "background-color:blue; color:white;";
-        startButton.innerHTML = "<i class='fa fa-play-circle'></i> START GAME"
-    }
-
     console.log("DOM is ready.");
 }
 
@@ -66,7 +49,6 @@ function askQuestion(){
         timerIsActive = false;
     }
 
-    document.getElementById("userResponse").focus();
 }
 
 function beginnerQuestion(firstNum, secondNum){
@@ -118,7 +100,6 @@ function checkUserResponse(){
     if (userResponse == correctAnswer) {
         count++;
         gamePoints++;
-        totalCorrectAnswer++;
         userScore.style = "background-color: green; border-radius:5px; padding-top:5px;";
         userScore.innerHTML = "Current Score: " + count;
         console.log("User is correct");
@@ -192,8 +173,7 @@ function countdownTimer(){
         startButton.disabled = userResponse.disabled = "true";
         startButton.style = userResponse.style = "background-color:grey; color:black;";
         userScore.innerHTML = "Final Score: " + count;
-        document.cookie = "gamePoints="+gamePoints;
-        document.cookie = "totalCorrectAnswer="+totalCorrectAnswer;
+        document.cookie = "gamePoints=" + gamePoints;
     }
     }, 1000);
 
@@ -237,23 +217,47 @@ function readCookie(name) {
     return null;
 }
 
-//Load root file and pass highest point value through url
-function loadHome(){
-    var uri = "highestScore="+gamePoints+"&totalCorrectAnswer="+totalCorrectAnswer;
-    window.location.href="../index.html?"+uri;
+//Game Statistics
+function showGameStats(){
+    var uname = "caraspace";
+    var highScore = 0;
+    var totalCorrectAnswer = 0;
+    var unlockedLevel = 0;
+
+    if(getUrlVars()["highestScore"] && getUrlVars()["totalCorrectAnswer"]){
+        var highScore = getUrlVars()["highestScore"];
+        var totalCorrectAnswer = getUrlVars()["totalCorrectAnswer"];
+    }
+
+    if (highScore > 499) {
+        unlockedLevel = 3;
+    } else if(highScore > 99){
+        unlockedLevel = 2;
+    } else{
+        unlockedLevel = 1;
+    }
+
+    document.getElementById('userStatuname').innerHTML = uname;
+    document.getElementById('userStatHighScore').innerHTML = highScore;
+    document.getElementById('userStatTotalCorrectAnswer').innerHTML = formatNumber(totalCorrectAnswer);
+    document.getElementById('userStatUnlockedLevel').innerHTML = unlockedLevel;
 }
 
-//Game Statistics
-// function showGameStats(){
-//     var uname = "caraspace";
-//     var highScore = readCookie('gamePoints');
-//     var totalCorrectAnswer = 100;
-//     var unlockedLevel = 0;
+//Get values from url, you can use [--var number = getUrlVars()["x"];--] to retrive data
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}
 
-//     console.log(document.cookie);
-
-//     document.getElementById('userStatuname').innerHTML = uname;
-//     document.getElementById('userStatHighScore').innerHTML = highScore;
-//     document.getElementById('userStatTotalCorrectAnswer').innerHTML = totalCorrectAnswer;
-//     document.getElementById('userStatUnlockedLevel').innerHTML = unlockedLevel;
-// }
+//Function to format numbers for totalCorrectAnswers in 1.2K , M, G... format  
+function formatNumber(n) {
+for (var i = 0; i < ranges.length; i++) {
+    if (n >= ranges[i].divider) {
+    return (n / ranges[i].divider).toString() + ranges[i].suffix;
+    }
+}
+return n.toString();
+}

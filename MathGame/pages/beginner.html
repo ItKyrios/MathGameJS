@@ -7,6 +7,7 @@
 <title>MathGame - Beginner Level</title>
 <link rel="stylesheet" href="../css/swiper.min.css">
 <link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/font-awesome.min.css">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"> 
 </head>
@@ -26,9 +27,11 @@
 	<!-- HEADER -->
 	<header class="header header--fixed">	
 		<div class="header__inner">	
-			<div class="header__icon header__icon--menu open-panel" data-panel="left" data-arrow="right"><span></span><span></span><span></span><span></span><span></span><span></span></a></div>
-			<div class="header__logo header__logo--text"><a href="../index.html"><strong>Beginner</strong>Level</a></div>	
-			<div class="header__icon open-panel" data-panel="right" data-arrow="left"><p style="color:white; font-weight: bolder;" id="timer">00m.00s</p></div>
+			<!-- <div class="header__icon header__icon--menu open-panel" data-panel="left" data-arrow="right"><span></span><span></span><span></span><span></span><span></span><span></span></a></div> -->
+			<div class="header__logo header__logo--text" style="cursor: pointer;"><a id="mainMenu" onclick="loadHome();">
+				<i class="fa fa-arrow-left"></i>
+				<strong>Main</strong>Menu</a></div>	
+				<div class="header__icon open-panel" data-panel="right" data-arrow="left" style="color:white; font-weight: bolder;" id="timer"><i class="fa fa-hourglass"></i> 00m.00s</div>
                 </div>
 	</header>
 	
@@ -41,7 +44,7 @@
 				<div class="slider-intro__caption caption">
 					<div class="caption__content">
 						<h2 class="caption__title" data-swiper-parallax="-300%" data-swiper-parallax-duration="500" id="question">What is?</h2>
-						<input type="hidden" pattern="\d*" id="userResponse" placeholder="Type your answer here" onclick="this.value=''" onkeypress="enterKeyPressed(event);"><br><br><br>
+						<input type="hidden" pattern="\d*" id="userResponse" placeholder="Type your answer here" onclick="this.value=''" onkeypress="enterKeyPressed(event);" autofocus><br><br><br>
 						<p class="caption__text" data-swiper-parallax="-100%" data-swiper-parallax-duration="200" id="userScore">
 							Your Score:  
 						</p>
@@ -61,7 +64,7 @@
 <!-- PAGE END -->
 
 <!-- Bottom navigation -->
-<div id="bottom-toolbar" class="bottom-toolbar"></div>
+<!-- <div id="bottom-toolbar" class="bottom-toolbar"></div> -->
 
 <!-- Social Icons Popup -->
 <div id="popup-social"></div>
