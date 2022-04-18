@@ -125,7 +125,7 @@ var numpad = {
     if (opt.decimal === undefined) { opt.decimal = false; }
 
     // (C2) GET + SET TARGET OPTIONS
-    //opt.target.readOnly = false; // PREVENT ONSCREEN KEYBOARD
+    opt.target.readOnly = true; // PREVENT ONSCREEN KEYBOARD
     opt.target.dataset.max = opt.max;
     opt.target.dataset.decimal = opt.decimal;
     opt.target.addEventListener("click", () => { numpad.show(opt.target); });
