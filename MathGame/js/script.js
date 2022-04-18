@@ -10,6 +10,7 @@ document.body.onload = init();
 function init(){
     // showGameStats();
     
+    numpad.attach({target: document.getElementById("userResponse")});
     gameLevel = document.querySelector("#gameLevel").value;
  
     if(document.cookie == ''){
@@ -142,6 +143,7 @@ function addLineToHTMLTable(firstNum, secondNum, operator) {
     var startButton = document.querySelector("#startButton");
 
     tableBody.innerHTML = "What is "+firstNum+" "+operator+" "+secondNum+"?";
+    startButton.style = "visibility: hidden;";
     startButton.innerHTML = "SUBMIT RESPONSE";
 }
 
@@ -188,9 +190,10 @@ function countdownTimer(){
 
         clearInterval(x);
         document.getElementById("timer").innerHTML = "EXPIRED";
-        startButton.innerHTML = userResponse.innerHTML = "EXPIRED";
+        document.getElementById("numWrap").style = "visibility: hidden;"
+        startButton.innerHTML = userResponse.innerHTML = "<a onclick='window.location.reload();' style='color:black;'><i class='fa fa-refresh'></i> RESTART LEVEL</a>";
         startButton.disabled = userResponse.disabled = "true";
-        startButton.style = userResponse.style = "background-color:grey; color:black;";
+        startButton.style = userResponse.style = "background-color:grey; color:black !important;";
         userScore.innerHTML = "Final Score: " + count;
         document.cookie = "gamePoints="+gamePoints;
         document.cookie = "totalCorrectAnswer="+totalCorrectAnswer;

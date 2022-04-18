@@ -8,8 +8,33 @@
 <link rel="stylesheet" href="../css/swiper.min.css">
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../css/font-awesome.min.css">
+<!-- (A) LOAD JS + CSS -->
+<link rel="stylesheet" href="../css/numpad-dark.css"/>
+
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"> 
+
+<!-- (C) ATTACH NUMPAD -->
+<script>
+	window.addEventListener("load", () => {
+	  // (C1) BASIC NUMPAD
+	  numpad.attach({target: document.getElementById("userResponse")});
+	 
+	  // (C2) WITH ALL POSSIBLE OPTIONS
+	  numpad.attach({
+		target: document.getElementById("userResponse"),
+		max: 10, // MAX 10 DIGITS
+		decimal: false, // NO DECIMALS ALLOWED
+		onselect : () => { // CALL THIS AFTER SELECTING NUMBER
+		  alert("userResponse number set.");
+		},
+		oncancel : () => { // CALL THIS AFTER CANCELING
+			confirm("Exit Keyboard?");
+		}
+	  });
+	});
+</script>
+
 </head>
 <body>
 <!-- Overlay panel -->
@@ -44,7 +69,9 @@
 				<div class="slider-intro__caption caption">
 				<div class="caption__content">
 					<h2 class="caption__title" data-swiper-parallax="-300%" data-swiper-parallax-duration="500" id="question">What is?</h2>
-                    <input type="hidden" pattern="\d*" id="userResponse" placeholder="Type your answer here" onclick="this.value=''" onkeypress="enterKeyPressed(event);" autofocus><br><br><br>
+                    <!-- (B) INPUT FIELD -->
+					<input type="hidden" class="demoA" id="userResponse" placeholder="Type your answer here" onclick="this.value=''" onkeypress="enterKeyPressed(event);" autofocus><br><br><br>
+					
 					<p class="caption__text" data-swiper-parallax="-100%" data-swiper-parallax-duration="200" id="userScore">
                          Your Score:  
                     </p>
@@ -77,6 +104,7 @@
 <script src="../js/jquery.validate.min.js" ></script>
 <script src="../js/swiper.min.js"></script>
 <script src="../js/jquery.custom.js"></script>
+<script src="../js/numpad.js"></script>
 <script src="../js/script.js"></script>
 </body>
 </html>
