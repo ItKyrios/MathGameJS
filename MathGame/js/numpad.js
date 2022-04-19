@@ -107,7 +107,7 @@ var numpad = {
     numpad.nowTarget.value = numpad.hdisplay.value;
     numpad.hdisplay.value = "0";
     checkUserResponse();
-    numpad.show();
+    //numpad.show();
     numpad.nowTarget.dispatchEvent(new Event("numpadok"));
   },
 
@@ -126,6 +126,10 @@ var numpad = {
 
     // (C2) GET + SET TARGET OPTIONS
     opt.target.readOnly = true; // PREVENT ONSCREEN KEYBOARD
+    console.log(deviceType());
+    if(deviceType() == "desktop"){
+      opt.target.readOnly = false; // FOR DESKTOP ALLOW KEYBOARD INPUT
+    }
     opt.target.dataset.max = opt.max;
     opt.target.dataset.decimal = opt.decimal;
     opt.target.addEventListener("click", () => { numpad.show(opt.target); });
@@ -142,7 +146,8 @@ var numpad = {
   // (D) SHOW NUMPAD
   show: (target) => {
     // (D1) SET CURRENT DISPLAY VALUE
-    let cv = target.value;
+    let cv = "";
+    
     if (cv == "") { cv = "0"; }
     numpad.hdisplay.value = cv;
 
@@ -170,3 +175,15 @@ var numpad = {
   }
 };
 window.addEventListener("DOMContentLoaded", numpad.init);
+
+//Identify the user device type for using keyboard functionality
+const deviceType = () => {
+  const ua = navigator.userAgent;
+  if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+      return "tablet";
+  }
+  else if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
+      return "mobile";
+  }
+  return "desktop";
+};
