@@ -3255,3 +3255,19 @@ a.plyr__controls__item.plyr__control:hover,
 :fullscreen {
   background-color: yellow;
 }
+
+ /* Grid Container */
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  gap: 2px;
+  background-color:darkcyan;
+  padding: 2px;
+}
+
+.grid-container > div {
+  text-align: center;
+  font-size: 12px;
+  color: white;
+  font-weight: 900;
+}
