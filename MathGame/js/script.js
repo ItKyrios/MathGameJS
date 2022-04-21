@@ -5,6 +5,7 @@ var gameLevel = "";
 var gamePoints;
 var timerIsActive = true;
 var consequetiveCorrectAnswer = -1;
+var requiredCorrectAnswer;
 var additionalTime = false;
 
 document.body.onload = init();
@@ -123,7 +124,7 @@ function checkUserResponse(){
         gamePoints++;
         totalCorrectAnswer++;
         consequetiveCorrectAnswer++;
-        if(consequetiveCorrectAnswer == 3){
+        if(consequetiveCorrectAnswer == requiredCorrectAnswer){
             additionalTime = true;
             consequetiveCorrectAnswer = 0;
             document.querySelector("#timer").innerHTML += 
@@ -164,15 +165,19 @@ function countdownTimer(){
     switch(gameLevel){
         case "beginner":
             gameTime = 40;
+            requiredCorrectAnswer = 3;
             break;
         case "intermediate":
             gameTime = 60;
+            requiredCorrectAnswer = 4;
             break;
         case "advance":
             gameTime = 120;
+            requiredCorrectAnswer = 5;
             break;
         default:
             gameTime = 0;
+            requiredCorrectAnswer = 0;
     }
 
     // Set the date we're counting down to
